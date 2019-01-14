@@ -1,5 +1,16 @@
 # K-Syntax
 
+## Installation
+
+`apm install K-Syntax`  
+
+or   
+
+search `K-Syntax` like below:
+
+
+
+## Run it
 The syntax highlighter for [K Framework](http://www.kframework.org/index.php/Main_Page). 
 
 Select the language from the bottom of atom
