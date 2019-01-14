@@ -1,5 +1,7 @@
 # K-Syntax
 
+The syntax highlighter for [K Framework](http://www.kframework.org/index.php/Main_Page). 
+
 Select the language from the bottom of atom
 ![alt text](https://github.com/vladbarbu/K-Syntax/blob/master/settings/1.png)
 
