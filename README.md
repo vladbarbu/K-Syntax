@@ -7,7 +7,7 @@
 or   
 
 search `K-Syntax` like below:
-
+![screen shot 2017-08-16 at 11 18 20 pm](https://github.com/vladbarbu/K-Syntax/blob/master/settings/4.png)
 
 
 ## Run it
