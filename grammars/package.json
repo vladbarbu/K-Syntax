@@ -1,0 +1,46 @@
+{
+  "_from": "https://www.atom.io/api/packages/language-k/versions/0.0.1/tarball",
+  "_id": "language-k@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-UrgPsA1wnuAEXznvTXHm26SxEncgQ44MSgz05tSSSTyjIq73T5jYc7vCdXk3bZDTtUA5/vz76OShx/VQV2g3Ww==",
+  "_location": "/language-k",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "remote",
+    "raw": "https://www.atom.io/api/packages/language-k/versions/0.0.1/tarball",
+    "rawSpec": "https://www.atom.io/api/packages/language-k/versions/0.0.1/tarball",
+    "saveSpec": "https://www.atom.io/api/packages/language-k/versions/0.0.1/tarball",
+    "fetchSpec": "https://www.atom.io/api/packages/language-k/versions/0.0.1/tarball"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://www.atom.io/api/packages/language-k/versions/0.0.1/tarball",
+  "_shasum": "89a35c9ebf3f7ce5c403b94c2253b8034d78b401",
+  "_spec": "https://www.atom.io/api/packages/language-k/versions/0.0.1/tarball",
+  "_where": "/private/var/folders/k4/x6hj5z7x4xb5tyfcd4g5njj00000gn/T/apm-install-dir-1181117-1016-rq1bp6.9432",
+  "bugs": {
+    "url": "https://github.com/shd101wyy/language-k/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "K Framework syntax highlighting",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "homepage": "https://github.com//language-k#readme",
+  "keywords": [
+    "language",
+    "grammar",
+    "k",
+    "kframework"
+  ],
+  "license": "MIT",
+  "name": "K-Syntax",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladbarbu/K-Syntax"
+  },
+  "version": "0.0.1"
+}

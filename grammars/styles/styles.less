@@ -1,0 +1,173 @@
+/*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed and saved.
+ *
+ * Add your own CSS or Less to fully customize Atom.
+ * If you are unfamiliar with Less, you can read more about it here:
+ * http://lesscss.org
+ */
+
+
+/*
+ * Examples
+ * (To see them, uncomment and save)
+ */
+/*
+// style the background color of the tree view
+.tree-view {
+   background-color: whitesmoke;
+}
+
+// style the background and foreground colors on the atom-text-editor-element itself
+atom-text-editor {
+   color: white;
+   //background-color: hsl(180, 24%, 12%);
+}
+
+// style UI elements inside atom-text-editor
+atom-text-editor .cursor {
+   border-color: white;
+}
+*/
+@import 'syntax-variables';
+
+// TODO not highlight already animated brackets
+// TODO not highlight neighbourds
+
+@bracket-color: @syntax-text-color;
+@bracket-initial-lightening: 30%;
+@bracket-final-transperency: 55%;
+@bracket-animation-duration: 0.85s;
+@bracket-border-width: 1px;
+
+@keyframes bracket-animation {
+  from {
+    border-color: lighten(@bracket-color, @bracket-initial-lightening);
+  }
+  40% {
+    border-color: fadeout(@bracket-color, @bracket-final-transperency * 0.7);
+  }
+  to {
+    border-color: fadeout(@bracket-color, @bracket-final-transperency);
+  }
+}
+
+atom-text-editor.editor .bracket-matcher .region {
+  animation: bracket-animation @bracket-animation-duration;
+  border: @bracket-border-width solid fadeout(@bracket-color, @bracket-final-transperency);
+}
+
+span.syntax--keyword.syntax--operator {
+      color: #4d78cc;
+}
+
+span.syntax--string.syntax--quoted.syntax--double {
+      color: #98c379;
+}
+
+span.syntax--keyword.syntax--type {
+    color: #ba68c8;
+}
+//Cells
+//<k>
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--begin.syntax--k {
+  color:#e06c75;
+}
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--end.syntax--k {
+  color:#e06c75;
+}
+span.syntax--string.syntax--cell.syntax--double.syntax--k {
+  color:#ede7f6;
+}
+//<dev>
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--begin.syntax--env {
+  color:#e06c75;
+}
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--end.syntax--env {
+  color:#e06c75;
+}
+span.syntax--string.syntax--cell.syntax--double.syntax--env {
+  color:#ede7f6;
+}
+//<store>
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--begin.syntax--store {
+  color:#e06c75;
+}
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--end.syntax--store {
+  color:#e06c75;
+}
+span.syntax--string.syntax--cell.syntax--double.syntax--store {
+  color:#ede7f6;
+}
+//<stack>
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--begin.syntax--stack {
+  color:#e06c75;
+}
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--end.syntax--stack {
+  color:#e06c75;
+}
+span.syntax--string.syntax--cell.syntax--double.syntax--stack {
+  color:#ede7f6;
+}
+//<in>
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--begin.syntax--in {
+  color:#e06c75;
+}
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--end.syntax--in {
+  color:#e06c75;
+}
+span.syntax--string.syntax--cell.syntax--double.syntax--in {
+  color:#ede7f6;
+}
+//<out>
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--begin.syntax--out {
+  color:#e06c75;
+}
+span.syntax--punctuation.syntax--definition.syntax--cell.syntax--end.syntax--out {
+  color:#e06c75;
+}
+span.syntax--string.syntax--cell.syntax--double.syntax--out {
+  color:#ede7f6;
+}
+
+span.syntax--keyword.syntax--cell.syntax--sign {
+  color:#e06c75;
+}
+span.syntax--keyword.syntax--cell.syntax--dots {
+  color:#e06c75;
+}
+span.syntax--keyword.syntax--cell.syntax--cell.syntax--walls {
+  color:#e06c75;
+}
+span.syntax--source.syntax--k{
+  color:#ffffff;
+}
+span.syntax--meta.syntax--syntax.syntax--start{
+  color:#ba68c8;
+}
+span.syntax--meta.syntax--syntax.syntax--end{
+  color:#ffffff;
+}
+span.syntax--entity.syntax--name.syntax--num{
+  color:#d32f2f;
+}
+span.syntax--punctuation.syntax--definition.syntax--curl.syntax--begin{
+  color:#ffffff;
+}
+span.syntax--punctuation.syntax--definition.syntax--curl.syntax--end{
+  color:#ffffff;
+}
+span.syntax--string.syntax--curl.syntax--double{
+  color:#ffffff;
+}
+span.syntax--punctuation.syntax--definition.syntax--round.syntax--begin{
+  color:#ffffff;
+}
+span.syntax--punctuation.syntax--definition.syntax--round.syntax--end{
+  color:#ffffff;
+}
+span.syntax--string.syntax--round.syntax--double{
+  color:#ffffff;
+}

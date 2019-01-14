@@ -1,0 +1,444 @@
+# If this is your first time writing a language grammar, check out:
+#   - http://manual.macromates.com/en/language_grammars
+
+'scopeName': 'source.k'
+'name': 'K-Language'
+'fileTypes': [
+  'k'
+]
+'patterns': [
+  # comments
+  ## line comments
+   {
+    'match': '^\\s*\/\/.*$'
+    'name': 'comment.line'
+  }
+  ## block comments
+  {
+    'begin': '/\\*'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.begin'
+    'end': '\\*/'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.end'
+    'name': 'comment.block'
+  }
+  # string escapes
+  'string_escapes':
+    'patterns': [
+      {
+        'match': '\\\\u(?![A-Fa-f0-9]{4}|{[A-Fa-f0-9]+})[^\'"]*'
+        'name': 'invalid.illegal.unicode-escape'
+      }
+      {
+        'match': '\\\\u(?:[A-Fa-f0-9]{4}|({)([A-Fa-f0-9]+)(}))'
+        'name': 'constant.character.escape'
+        'captures':
+          '1':
+            'name': 'punctuation.definition.unicode-escape.begin.bracket.curly'
+          '2':
+            'patterns': [
+              {
+                # Max codepoint: \u{10FFFF}
+                'match': '[A-Fa-f\\d]{7,}|(?!10)[A-Fa-f\\d]{6}'
+                'name': 'invalid.illegal.unicode-escape'
+              }
+            ]
+          '3':
+            'name': 'punctuation.definition.unicode-escape.end.bracket.curly'
+      }
+      {
+        'match': '\\\\(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)'
+        'name': 'constant.character.escape'
+      }
+    ]
+  # string
+  {
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end'
+    'name': 'string.quoted.double'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^"]*[^\\n\\r"\\\\]$'
+        'name': 'invalid.illegal.string'
+      }
+    ]
+  }
+  #{}
+  {
+    'begin': '\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.curl.begin'
+    'end': '\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.curl.end'
+    'name': 'string.curl.double'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+      {
+        'match': '[\{]*[^\\n\\r\}]$'
+        'name': 'invalid.illegal.string'
+      }
+    ]
+  }
+  #{}
+  {
+    'begin': '\\('
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.round.begin'
+    'end': '\\)'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.round.end'
+    'name': 'string.round.double'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+      {
+        'match': '[\(]*[^\\n\\r\)]$'
+        'name': 'invalid.illegal.string'
+      }
+    ]
+  }
+  #Cells def
+  #<k></k>
+  {
+    'begin': '<k>'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.k'
+    'end': '</k>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.k'
+    'name': 'string.cell.double.k'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+      {
+        'match': '[^<k>]*[^\\n\\r</k>\\\\]$'
+        'name': 'invalid.illegal.cell.k'
+      }
+    ]
+  }
+  #<env></env>
+  {
+    'begin': '<env>'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.env'
+    'end': '</env>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.env'
+    'name': 'string.cell.double.env'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^<env>]*[^\\n\\r</env>\\\\]$'
+        'name': 'invalid.illegal.cell.env'
+      }
+      {
+        'match': '\\b(Int|Id|String|Bool)\\b'
+        'name': 'keyword.type'
+      }
+      {
+        'match': '\\|->'
+        'name': 'keyword.cell.sign'
+      }
+      {
+        'match': '\\<=|\\=>'
+        'name': 'keyword.cell.walls'
+      }
+    ]
+  }
+  #<store></store>
+  {
+    'begin': '<store>'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.store'
+    'end': '</store>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.store'
+    'name': 'string.cell.double.store'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^<store>]*[^\\n\\r</store>\\\\]$'
+        'name': 'invalid.illegal.cell.store'
+      }
+      {
+        'match': '\\b(Int|Id|String|Bool)\\b'
+        'name': 'keyword.type'
+      }
+      {
+        'match': '\\|->'
+        'name': 'keyword.cell.sign'
+      }
+      {
+        'match': '\\<=|\\=>'
+        'name': 'keyword.cell.walls'
+      }
+    ]
+  }
+  #<stack></stack>
+  {
+    'begin': '<stack>'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.stack'
+    'end': '</stack>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.stack'
+    'name': 'string.cell.double.stack'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^<stack>]*[^\\n\\r</stack>\\\\]$'
+        'name': 'invalid.illegal.cell.stack'
+      }
+      {
+        'match': '\\b(Int|Id|String|Bool)\\b'
+        'name': 'keyword.type'
+      }
+      {
+        'match': '\\|->'
+        'name': 'keyword.cell.sign'
+      }
+      {
+        'match': '\\<=|\\=>'
+        'name': 'keyword.cell.walls'
+      }
+    ]
+  }
+  #<in></in>
+  {
+    'begin': '<in stream="[a-zA-Z]+">'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.in'
+    'end': '</in>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.in'
+    'name': 'string.cell.double.in'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^<in stream="">]*[^\\n\\r</in>\\\\]$'
+        'name': 'invalid.illegal.cell.in'
+      }
+      {
+        'match': '\\b(Int|Id|String|Bool)\\b'
+        'name': 'keyword.type'
+      }
+      {
+        'match': '\\|->'
+        'name': 'keyword.cell.sign'
+      }
+      {
+        'match': '\\<=|\\=>'
+        'name': 'keyword.cell.walls'
+      }
+    ]
+  }
+  #<out></out>
+  {
+    'begin': '<out stream="[a-zA-Z]+">'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.out'
+    'end': '</out>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.out'
+    'name': 'string.cell.double.out'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^<out>]*[^\\n\\r</out>\\\\]$'
+        'name': 'invalid.illegal.cell.out'
+      }
+      {
+        'match': '\\b(Int|Id|String|Bool)\\b'
+        'name': 'keyword.type'
+      }
+      {
+        'match': '\\|->'
+        'name': 'keyword.cell.sign'
+      }
+      {
+        'match': '\\<=|\\=>'
+        'name': 'keyword.cell.walls'
+      }
+    ]
+  }
+  #<out></out>
+  {
+    'begin': '<out>'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.out'
+    'end': '</out>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.out'
+    'name': 'string.cell.double.out'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^<out>]*[^\\n\\r</out>\\\\]$'
+        'name': 'invalid.illegal.cell.out'
+      }
+      {
+        'match': '\\b(Int|Id|String|Bool)\\b'
+        'name': 'keyword.type'
+      }
+      {
+        'match': '\\|->'
+        'name': 'keyword.cell.sign'
+      }
+      {
+        'match': '\\<=|\\=>'
+        'name': 'keyword.cell.walls'
+      }
+    ]
+  }
+  #<in></in>
+  {
+    'begin': '<in>'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.begin.in'
+    'end': '</in>'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.cell.end.in'
+    'name': 'string.cell.double.in'
+    'patterns': [
+      {
+        'include': '#string_escapes'
+      }
+      {
+        'match': '[^<in>]*[^\\n\\r</in>\\\\]$'
+        'name': 'invalid.illegal.cell.in'
+      }
+      {
+        'match': '\\b(Int|Id|String|Bool)\\b'
+        'name': 'keyword.type'
+      }
+      {
+        'match': '\\|->'
+        'name': 'keyword.cell.sign'
+      }
+      {
+        'match': '\\<=|\\=>'
+        'name': 'keyword.cell.walls'
+      }
+    ]
+  }
+  # operators
+  {
+    'match': '::=|\\+|\\-|\\*|/|=>|<=|true|false|~>|print'
+    'name': 'keyword.operator'
+  }
+  # keywords
+  {
+    'match': '\\b(strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro|token|notInRules|autoReject|structural)\\b'
+    'name': 'token.keyword'
+  }
+  {
+    'match': '\\b(rule|configuration|require|requires|Kresult|context|if|while|else)\\b'
+    'name': 'token.keyword'
+  }
+  {
+    'match': '\\b(Int|Id|String|Bool|int)\\b'
+    'name': 'keyword.type'
+  }
+  # module
+  {
+    'match': '^\\s*(module)\\s+([\\s\\S]+?)$'
+    'captures':
+      '1':
+        'name': 'token.keyword'
+      '2':
+        'name': 'entity.name.function'
+  }
+  {
+    'match': '^\\s*(imports)\\s+([\\s\\S]+?)$'
+    'captures':
+      '1':
+        'name': 'token.keyword'
+      '2':
+        'name': 'entity.name.function'
+  }
+  {
+    'match': '\\b(endmodule)\\b'
+    'name': 'token.keyword'
+  }
+  # brackets
+  {
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'meta.brace.square'
+    'end': '\\]'
+    'endCaptures':
+      '0':
+        'name': 'meta.brace.square'
+    'patterns': [
+      {
+        'match': '[a-zA-Z]+'
+        'name': 'entity.name.tag'
+      }
+      {
+        'match': '([0-9]+)'
+        'name': 'entity.name.num'
+      }
+    ]
+  }
+  # syntax
+  {
+    'begin': 'syntax'
+    'beginCaptures':
+      '0':
+        'name': 'meta.syntax.start'
+    'end':'[a-zA-Z0-9]+'
+    'endCaptures':
+      '0':
+        'name': 'meta.syntax.end'
+  }
+]
